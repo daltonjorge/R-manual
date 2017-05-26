@@ -1,0 +1,99 @@
+You have several options for getting raw data into R. This can occasionally be a difficult process, particularly if your data are in a non-standard format (like data from Perdisco).
+
+### Entering Data Manually
+
+When provided with a small set of data, the easiest way to get it into R is to enter it manually. For example, suppose you are given the following short list of data in a homework question:
+
+> Here is a sample of money spent on fuel per week:<br>
+> $45.00 $11.00 $13.00 $14.50 $65.00 $27.50 $32.00 $8.00
+
+To enter it into R, add a line in your homework script that looks like this:
+    
+```{r}
+mydata <- c(45.00, 11.00, 13.00, 14.50, 65.00, 27.50, 32.00, 8.00)
+```
+
+You are creating a new *object* in R called `mydata` that contains a list of the data points. Notice that the data points are separated by commas, and are inside `c()` which is an R *function* stands for *combine*. Put your cursor in front of `mydata` and click the "Run" button on the top right of the script pane to enter the new object into the R console. You can now view the datapoints in the "mydata" object by typing 'mydata' into the console and hitting enter:
+    
+```{r}
+mydata
+```
+
+### Read in Perdisco Homework Data
+
+1. Start by opening the homework Start by clicking on the "Download the Data" button next to the dataset you want:
+    
+![](images/download.png)
+    
+This will pop open a new window containing your dataset. Take a close look at the contents and consider the answers to the following questions: 
+    
+1. Is there a single column of data, or more than one column?
+2. Is there a *header* at the top of the column(s)? That is, do the column(s) have names?
+3. How are the data points separated? (For all Perdisco files you will access, the answer is probably commas)
+
+Next, select all the values in the popup (ignoring the "For help..." line at the top of the page):
+    
+![](images/select.png)
+    
+2. Next, use the `read.table()` *function* to read the data into R directly from your computer's clipboard. The `read.table` function requires you to specify three *arguments* (i.e., options): the data source (in our case the clipboard), if the file has *headers*, and how the individual data points are separated from each other (commas). Add the following lines to your script:
+    
+```{r, echo=FALSE}
+set.seed(2017)
+#Generate the sample dataset to be read in
+out = round(rnorm(100,2,1),2)
+out = cbind(out,NA)
+write.table(out,file='example.txt',sep=',',row.names=F, col.names=F)
+mydata = read.table(file = 'example.txt', header = FALSE, sep = ",")
+file.remove('example.txt')
+```
+    
+```{r, eval=FALSE}
+mydata <- read.table(file = "clipboard", header = FALSE, sep = ",")
+```
+    
+You may see the following warning message in the console if the dataset only has one column:
+    
+> Warning message: <br>
+> In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : <br>
+> number of items read is not a multiple of the number of columns
+    
+This is due to a quirk in Perdisco's text files that creates an extra column of empty values you don't want. If you see this warning, add the following line to your script and run it after the code above to get rid of the extra column. At this point, don't worry about exactly what this code is doing.
+    
+```{r}
+mydata <- mydata[,-ncol(mydata)]
+```
+    
+You can now look at the dataset in R by typing `mydata` into the console. If your dataset only had one column, you should get something that looks similar to the following output:
+    
+```{r}
+mydata
+```
+
+Note that Perdisco also provides instructions on their site for importing homework data into an Excel file. If you do this, see the information below for how to import the Excel data into R.
+
+### Read Excel Data into R
+
+1. Open the Excel file and determine if there are column names (i.e., *headers*) present.
+2. Save the Excel file in CSV (comma-separated-values) format. In Excel, click File > Save As > Save as Type: CSV (comma-delimited)(*.csv). Confirm you want to use this format. This will save a text version of the Excel table that is readable by R.
+2. Tell RStudio which folder the new CSV file is located. In the top menu of RStudio, click on Session > Set Working Directory > Choose Directory, and then pick the folder that contains your CSV file.
+3. Use the `read.table()` function to read in the CSV file. Similar to above, you will need to provide the file name in quotes, if the file has *headers* (`TRUE` or `FALSE`), and the way values are separated (always commas for CSV files):
+
+    ```{r, eval=FALSE}
+    mydata <- read.table(file = "YOURFILENAME.csv", header = FALSE, sep = ",")
+    ```
+
+### Selecting Individual Columns of Data
+
+Frequently, you will be working with a dataset that contains multiple columns of data. For example, the `mtcars` dataset (it's  built into R) contains several columns of information about different car models. Here are the first several rows:
+
+```{r}
+head(mtcars)
+```
+
+You may need to work with only a single data column, say the miles-per-gallon column (`mpg`). To select only this column, type the name of the dataset (`mtcars`) followed by the `$` operator, followed by the name of the column you are interested in (`mpg`):
+
+```{r}
+mtcars$mpg
+```
+
+This will print only the data in the `mpg` column to the console.

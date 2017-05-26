@@ -1,0 +1,76 @@
+### Quantitative Data
+
+R has many built in tools to calculate descriptive statistics of quantitative data. We'll calculate a series of descriptive statistics for the `mpg` (miles-per-gallon) column of the `mtcars` dataset that comes with R. To review, here's what the first few rows of the `mtcars` dataset look like:
+
+```{r}
+head(mtcars)
+```
+
+First, we'll save the `mpg` column into a new object called `mydata`, using the `$` operator (see the end of the "Importing Data" section of the manual for more details)
+
+```{r}
+mydata <- mtcars$mpg
+mydata
+```
+
+Next, we can calculate the mean (or average) value of mpg using the `mean()` function, which takes the data object as an input and outputs the corresponding statistic into the console:
+
+```{r}
+mean(mydata)
+```
+
+There are many other built-in R functions that you will find useful. For example:
+
+```{r}
+median(mydata)
+sd(mydata)
+range(mydata)
+```
+
+Giving you the median, standard deviation, and range of the dataset, respectively. You can also get the five-number summary of your dataset (plus the mean):
+
+```{r}
+summary(mydata)
+```
+
+R can also be used to calculate how many values in a dataset fall in a certain range. For example, say you wanted to know how many values in `mydata` were less than 2. The following code checks each individual element of `mydata` to see if it is less than (`<`) 2; if it is, it returns `TRUE`, and if not `FALSE`.
+
+```{r}
+mydata < 21
+```
+
+The next step is to call the `sum` function on the output, which will total up the number of `TRUE` entries and thus the number of values less than 2:
+
+```{r}
+sum(mydata < 21)
+```
+
+You can do much more complicated checks as well. For example, say you wanted to know how many elements of `mydata` were *less than or equal to* 2 AND *greater than* 1. You can combine two checks with `&`:
+
+```{r}
+sum(mydata <= 21 & mydata > 14)
+```
+
+To calculate the percentage of values of `mydata` less than or equal to 2 and greater than 1, simply divide the above code by the length of mydata and multiply by 100:
+
+```{r}
+sum(mydata <= 21 & mydata > 14) / length(mydata) * 100
+```
+
+### Categorical Data
+
+The `mtcars` dataset also contains a column `cyl` which contains information about the number of cylinders (4, 6, or 8) in the engine of each car model. Although `cyl` contains numbers, we can treat it as a categorical variable. 
+
+Create a new object called `cyldata` that contains only the `cyl` column, using the `$` operator:
+
+```{r}
+cyldata <- mtcars$cyl
+```
+
+The easiest way to summarize categorical data is to create a table counting up the number of car models in each cylinder category, using the `table()` function:
+
+```{r}
+table(cyldata)
+```
+
+Generating a table like this one will also be useful when creating barplots and pie charts (see Graphs and Plots section).

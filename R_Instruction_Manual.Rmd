@@ -1,0 +1,31 @@
+---
+title: 'STAT 301: R Instruction Manual'
+author: "Kenneth F. Kellner"
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  html_document:
+    toc: yes
+    toc_float: true
+  pdf_document: default
+---
+
+## Getting Started
+```{r child='01_getting_started.Rmd'}
+```
+
+## Importing Data into R
+```{r child='02_importing_data.Rmd'}
+```
+
+## Taking a Simple Random Sample
+```{r child='03_simple_random_sample.Rmd'}
+```
+
+## Descriptive Statistics
+```{r child='04_descriptive_stats.Rmd'}
+```
+
+## Graphs and Plots
+```{r child='05_plots.Rmd'}
+```
+

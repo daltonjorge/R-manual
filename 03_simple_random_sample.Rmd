@@ -1,0 +1,47 @@
+To demonstrate taking a simple random sample (SRS), we'll use the `mtcars` dataset built into R:
+
+```{r}
+head(mtcars)
+```
+
+Our goal here is to randomly sample 5 rows (i.e., car models) from the full `mtcars` dataset.
+
+The easiest way to create an SRS in `R` is using the special function `sample_n()` which is found in the `dplyr` package. `R` "packages" are collections of useful tools that augment the functionality provided by the basic version of `R`. Packages are always free and are downloaded from the internet.
+
+To download, install, and load the `dplyr` package:
+
+1. Make sure you have an internet connection.
+2. Select the "Packages" tab from the bottom-right-hand pane in RStudio, and click on "Install".
+3. In the "Install From" dropdown, select "Repository (CRAN, CRANextra)". CRAN is a website which stores R packages.
+4. Below, in the "Packages" box, type in `dplyr` (it should auto-complete).
+5. Make sure "Install dependancies" is checked and click "Install". You may be prompted to choose a CRAN mirror. Choose one of the USA options.
+6. RStudio will download, configure, and install the package automatically; you will see some gibberish in your console.
+7. Load the newly downloaded package into your workspace by typing the following code into your console:
+    ```{r, warning=F, message=F}
+    library(dplyr)
+    ```
+
+You now have access to the `sample_n()` function! You can look at the manual for this function by typing the following into your console:
+```{r, eval=F}
+?sample_n
+```
+This will pop up some information about the function in the "Help" tab of the bottom-left pane in RStudio.
+
+We're finally ready to take an SRS from the `mtcars` dataset. We need to give `sample_n()` two pieces of information: the name of the dataset we want to sample, and the size of the sample (e.g., 5 subjects). We will save our new sample into a new object called `sample1`.
+
+```{r}
+sample1 <- sample_n(mtcars, size = 5)
+```
+
+View the saved `sample1` object in the console. Note yours will not be exactly the same set of rows as what you see here, it is a random sample after all!
+
+```{r}
+sample1
+```
+
+To get another SRS from `mtcars`, simply run the same command from above again, but save to a different object (e.g. `sample2`):
+
+```{r}
+sample2 <- sample_n(mtcars, size = 5)
+sample2
+```

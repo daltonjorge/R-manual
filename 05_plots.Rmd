@@ -1,0 +1,110 @@
+### Bar Graph
+
+We'll use engine cylinder data (`cyl`) from the `mtcars` dataset to demonstrate creating a bar graph in R. First, generate a table from the `cyl` data column and save it as a new object `cyltable`:
+
+```{r}
+cyltable <- table(mtcars$cyl)
+cyltable
+```
+
+Next, use the `barplot()` function to generate a bar graph from this table. We also need to add appropriate labels to the x- and y-axes using the `xlab` and `ylab` arguments:
+
+```{r}
+barplot(cyltable, xlab="Cylinders", ylab="Number of Car Models")
+```
+
+The plot will appear in the Plots tab in the bottom right-hand pane of RStudio.
+
+You have many options to customize the look of your barplot. For example, we may want to change the order of the  bars. In order to sort the bars from tallest to shortest, we need to sort the table on which the barplot is based (`cyltable`). We can do this using the `sort()` function, and save the sorted table into a new object called `cyltable.sorted`:
+
+```{r}
+cyltable.sorted <- sort(cyltable, decreasing = TRUE)
+cyltable.sorted
+```
+
+Note we have specified the option `decreasing = TRUE`; otherwise our table would be sorted shortest to tallest instead. Now, generate a barplot from this new table. The columns will now be in decreasing order:
+
+```{r}
+barplot(cyltable.sorted, xlab="Cylinders", ylab="Number of Car Models")
+```
+
+You can change the pattern and color of the bars as well. To change the pattern, use the `density` option (set it to a fairly large number, say between 30 and 50). To change the color of the bars, use the `col` option; `R` recognizes many basic colors like `'red'`, `'blue'` or `'green'`:
+
+```{r}
+barplot(cyltable.sorted, xlab="Cylinders", ylab="Number of Car Models", density = 30, col='red')
+```
+
+### Pie Chart
+
+You can get a basic pie chart very easily by running the `pie()` function on the table you previously created (`cyltable`):
+
+```{r}
+pie(cyltable)
+```
+
+Adding percentages for each category to the pie chart is unfortunatly a little more involved. First, we'll need to calculate the percentages, and save them as a new object called `pct`. We'll use our table to do this:
+
+```{r}
+pct <- round(cyltable / sum(cyltable) * 100, 1)
+pct
+```
+
+The code above divides each element of the table by the total number of car models, multiplies  by 100, and then rounds the result to 1 decimal point.
+
+Then we'll insert the percentages onto the pie chart using the `labels` argument, and improve the color scheme using the `rainbow()` function. Finally, we'll add a legend. Don't worry too much about understanding all the code below at this point; just replace instances of `cyltable` with the name of the table you are using to generate your pie chart, and change the title from `'Cylinders`' to something more appropriate.
+
+```{r}
+pie(cyltable, labels = pct, col=rainbow(length(cyltable)))
+legend('topleft',legend=names(cyltable),fill=rainbow(length(cyltable)), title='Cylinders')
+```
+
+### Histogram
+
+As an example, we'll generate a histogram from the miles per gallon (`mpg`) column of the `mtcars` dataset. Use the `hist()` function and supply the column of data you want to generate a histogram for (`mtcars$mpg`):
+
+```{r}
+hist(mtcars$mpg)
+```
+
+You can change the number of bars by changing the number of breakpoints. For example, we can force R to use only 3 bars by changing the breakpoints to 2:
+
+```{r}
+hist(mtcars$mpg, breaks=2)
+```
+
+### Stem-and-Leaf Plot
+
+We'll generate a stem-and-leaf plot from the miles per gallon (`mpg`) column of the `mtcars` dataset, using the `stem()` function:
+
+```{r}
+stem(mtcars$mpg)
+```
+
+Note that the stem-and-leaf plot prints in the console instead of in the Plots tab.
+
+### Boxplot
+
+A boxplot of the `mpg` data can be generated with the `boxplot()` function:
+
+```{r}
+boxplot(mtcars$mpg, ylab="Miles per Gallon")
+```
+
+We also might want to make a more complex boxplot, with a separate plot of `mpg` for each cylinder (`cyl`) value:
+
+```{r}
+boxplot(mtcars$mpg ~ mtcars$cyl, xlab="Cylinders", ylab="Miles per Gallon")
+```
+
+### Normal Quantile Plot
+
+To generate a normal quantile plot of the `mpg` column of the `mtcars` dataset, use the `qqnorm()` and `qqline()` functions together (in that order) on `mtcars$mpg`.
+
+```{r}
+qqnorm(mtcars$mpg)
+qqline(mtcars$mpg)
+```
+
+### Exporting a Plot from RStudio
+
+To save a plot, click on the *Export* button in the plot tab of RStudio and choose to save it as an image. In the window that pops up, choose to save as a PNG and specify a name for your file. The PNG can be pasted into Word.
