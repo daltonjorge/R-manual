@@ -1,0 +1,66 @@
+### One Sample t-test
+
+Suppose we want to test if the mean `mpg` (miles-per-gallon) of all cars in the `mtcars` dataset is significantly different from 23. We can do this using a one sample t-test, which can be conducted with the built-in `t.test()` function in R.
+
+We need to provide two arguments to `t.test()`: the set of `mpg` values (`mtcars$mpg`), and the null hypothesis (or $\mu_0$), which in our case is `23`. We'll save the output of the test to an object called `cars.1sample`:
+
+```{r}
+cars.1sample <- t.test(mtcars$mpg, mu=23)
+```
+
+To view the output of the test, type the object into the console:
+
+```{r}
+cars.1sample
+```
+
+Note that R provides lots of output information, including the value of *t*, the degrees of freedom, the *p*-value, the mean value of `mtcars$mpg`, and the 95% confidence interval around the mean value.
+
+By default, R runs a two-sided t-test. If you want to do a one-sided test instead, you can do so by specifying the `alternative` argument in your call to `t.test()`, as either `'less'` or `'greater'`. For example, if you wanted to test the hypothesis that the mean value of `mpg` was significantly *less* than 23:
+
+```{r}
+cars.1sample <- t.test(mtcars$mpg, alternative='less', mu=23)
+cars.1sample
+```
+
+As expected, the *p*-value given by this test is half of the value for the two-sided test conducted above.
+
+### Matched pairs t-test
+
+To demonstrate a matched-pairs t-test, we'll use the `sleep` data built into R, which looks like this:
+
+```{r}
+head(sleep)
+```
+
+The data are from an en experiment where 10 patients received two different sleep drugs and then the amount of extra sleep each patient got with each drug was measured. The response variable is in column `extra`, the amount of extra sleep. The column `group` is the drug used (1 or 2), and `ID` is the ID of the student. 
+
+To set up this t-test, you will have to learn to use the the R formula syntax. The syntax looks basically like this:
+
+> response_variable ~ predictor_variable(s)
+
+The y variable (or response variable, or independent variable) goes on the left, followed by a tilde (`~`), followed by the predictor or dependent variable(s). In our example above, we want to predict extra sleep (`extra`) as a function of drug type (confusingly named `group` column). Thus our R formula should look like this:
+
+```{r}
+sleep$extra ~ sleep$group
+```
+
+We also need to specify that this is a paired t-test (pairs of responses of the same student to the two different drugs) which we do by setting the `paired` argument to `TRUE`. So, the final call to the `t.test()` function looks like this:
+
+```{r}
+sleep.paired <- t.test(sleep$extra ~ sleep$group, paired = TRUE)
+sleep.paired
+```
+
+Note that by default the alternative hypothesis ($\mu_0$) is set to 0; we could change this with the `mu` argument as shown above. You should also notice that the calculated mean is negative. This means that the mean of group 1 is *less* than the mean of group 2 - R calculates the mean as group 1 - group 2. If are interested in the reverse value (group 2 - group 1), you have to switch the sign of the mean (to positive in this case).
+
+### Two-sample t-test
+
+Now, let's assume that the `sleep` drug response data are not paired, but in fact data from the two groups (i.e., the two drug types) are independent - thus we need to conduct a two-sample t-test. All we need to do differently is remove the `paired` argument from our call to `t.test()` (or set it to `FALSE`):
+
+```{r}
+sleep.paired <- t.test(sleep$extra ~ sleep$group)
+sleep.paired
+```
+
+Note that R specifies in the output that this is a Welch's Two-Sample t-test, meaning that R is assuming that the two groups *do not* have equal variance.

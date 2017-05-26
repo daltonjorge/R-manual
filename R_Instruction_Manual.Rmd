@@ -29,3 +29,6 @@ output:
 ```{r child='05_plots.Rmd'}
 ```
 
+## t-tests
+```{r child='06_ttest.Rmd'}
+```
