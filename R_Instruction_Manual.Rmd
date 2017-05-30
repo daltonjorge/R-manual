@@ -25,7 +25,7 @@ output:
 ```{r child='04_descriptive_stats.Rmd'}
 ```
 
-## Graphs and Plots
+## Graphs and Plots <a id="graphs"></a>
 ```{r child='05_plots.Rmd'}
 ```
 

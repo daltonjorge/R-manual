@@ -15,7 +15,7 @@ To generate a scatterplot from these two variables, simply provide the  two colu
 plot(x = mtcars$hp, y = mtcars$mpg)
 ```
 
-There appears to be a negative relationship between the two variables. Note that you could optionally change the colors, x- and y-axis labels, etc. in the same way that we changed things in previous plots (see section 5 of this manual).
+There appears to be a negative relationship between the two variables. Note that you could optionally change the colors, x- and y-axis labels, etc. in the same way that we changed things in [previous plots](#changecolors).
 
 ### Correlation
 
@@ -38,6 +38,12 @@ summary(mpg.lm)
 
 R provides estimates of the coefficients (that is, the slope and intercept) along with associated standard errors and p-values. At the bottom of the summary statement R also provides an estimate of the residual error, the, djusted R-squared, and an F-statistic.
 
+There is a large amount of hidden information available in our regression output object `mpg.lm`, including information useful for generating [diagnostic plots](#diagnostics). To review, you can see what information is stored in the model object with the `names()` function:
+
+```{r}
+names(mpg.lm)
+```
+
 To increase the number of digits after the decimal point, using the `print()` function:
 
 ```{r}
@@ -53,11 +59,11 @@ abline(mpg.lm) #Add the regression line to the plot
 
 If you don't see the line, try switching the order of the variables provided in `plot()` and running the code above again.
 
-### Diagnostic Plots
+### Diagnostic Plots <a id="diagnostics"></a>
 
-To get a normal probability plot (or QQ-plot, or normal quantile plot) for the dependent variable, see section 5 of the manual ("Normal Quantile Plot).
+Normal probability plots (or QQ-plot, or normal quantile plot) for the dependent variable were covered previously [here](#qqplot).
 
-There is a large amount of hidden information available in our regression output object (`mpg.lm`). We can extract a list of the unstandardized residuals by calling the `residuals()` function on our model output:
+We can extract a list of the unstandardized residuals by calling the `residuals()` function on our model output:
 
 ```{r}
 residuals(mpg.lm)

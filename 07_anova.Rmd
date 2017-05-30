@@ -54,7 +54,7 @@ We may also want to test for differences between individual pairs of means. The 
 model.tables(mpg.anova,"means")
 ```
 
-The output shows the overall mean, the mean value by cylinder count, and the sample size for each cylinder count (`rep`). We can visualize these means using a boxplot (see section 5 for more details on making boxplots):
+The output shows the overall mean, the mean value by cylinder count, and the sample size for each cylinder count (`rep`). We can visualize these means using a boxplot (click [here](#boxplot) for more details on making boxplots):
 
 ```{r}
 boxplot(mtcars$mpg ~ cyl.factor)

@@ -1,10 +1,10 @@
 ### Convert Raw Data to a Table
 
-When conducting a chi-square test, R expects the input data to be in the form of a table of counts (i.e., a contigency table). If you have raw data instead, where each line of the dataset represents an individual subject, you will need to convert that data into tabular form first. If you already have a table, move on to the next section.
+When conducting a chi-square test, R expects the input data to be in the form of a table of counts (i.e., a contigency table). If you have raw data instead, where each line of the dataset represents an individual subject, you will need to convert that data into tabular form first. If you already have a table, move on to the [next section](#chisqnext).
 
 To demonstrate compiling raw data into a table, we'll use a built-in dataset `survey`, results from a survey on health-related habits. You'll need to load the built-in `MASS` package to use it:
 
-```{r}
+```{r, warning=F, message=F}
 library(MASS)
 ```
 
@@ -36,7 +36,7 @@ To change counts into percentages, simply divide all values in the table by the 
 smoke.table / sum(smoke.table) * 100
 ```
 
-### Run the Chi-square Test
+### Run the Chi-square Test <a id="chisqnext"></a>
 
 Once the data are in tabular form, we can conduct a chi-square test with the `chisq.test()` function, which takes our table as input:
 
@@ -54,7 +54,7 @@ print(chisq.test(smoke.table),digits=10)
 
 ### Bar Graph
 
-One way to summarize the tabular data visually is via a bar graph (see section 5 for more details).
+One way to summarize the tabular data visually is via a bar graph (click [here](#bargraph) for more details).
 
 We can call the `barplot()` function directly on the table we generated earlier:
 
@@ -62,7 +62,7 @@ We can call the `barplot()` function directly on the table we generated earlier:
 barplot(smoke.table)
 ```
 
-This gives us an uneappealing stacked bar graph where each bar represents one of the exercise categories and different colors represent different smoking categories. We can split the bar stacks out into groups instead by setting the argument `beside = TRUE`, and provide a legend for the colors with `legend = TRUE`. The remaining arguments add helpful labels.
+This gives us an unappealing stacked bar graph where each bar represents one of the exercise categories and different colors represent different smoking categories. We can split the bar stacks out into groups instead by setting the argument `beside = TRUE`, and provide a legend for the colors with `legend = TRUE`. The remaining arguments add helpful labels.
 
 ```{r}
 barplot(smoke.table, beside = TRUE, legend = TRUE, xlab = "Exercise", ylab = "Counts", args.legend = list(title="Smoking"))

@@ -20,7 +20,17 @@ You can change the number of significant digits reported in the output by wrappi
 print(cars.1sample, digits=10)
 ```
 
-Note that R provides lots of output information, including the value of *t*, the degrees of freedom, the *p*-value, the mean value of `mtcars$mpg`, and the 95% confidence interval around the mean value.
+Note that R provides lots of output information in the console, including the value of *t*, the degrees of freedom, the *p*-value, the mean value of `mtcars$mpg`, and the 95% confidence interval around the mean value. Even more information is stored in the model object. You can see a list of all the pieces of information stored in the object `cars.1sample` with the `names()` function:
+
+```{r}
+names(cars.1sample)
+```
+
+We can access all these hidden pieces of information using the `$` operator (for review click [here](#columns)). For example, `"statistic"` contains the value of the calculated t-statistic:
+
+```{r}
+cars.1sample$statistic
+```
 
 By default, R runs a two-sided t-test. If you want to do a one-sided test instead, you can do so by specifying the `alternative` argument in your call to `t.test()`, as either `'less'` or `'greater'`. For example, if you wanted to test the hypothesis that the mean value of `mpg` was significantly *less* than 23:
 

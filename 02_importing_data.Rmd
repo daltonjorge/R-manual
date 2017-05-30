@@ -82,7 +82,7 @@ Note that Perdisco also provides instructions on their site for importing homewo
     mydata <- read.table(file = "YOURFILENAME.csv", header = FALSE, sep = ",")
     ```
 
-### Selecting Individual Columns of Data
+### Selecting Individual Columns of Data <a id="columns"></a>
 
 Frequently, you will be working with a dataset that contains multiple columns of data. For example, the `mtcars` dataset (it's  built into R) contains several columns of information about different car models. Here are the first several rows:
 

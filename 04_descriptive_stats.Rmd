@@ -6,7 +6,7 @@ R has many built in tools to calculate descriptive statistics of quantitative da
 head(mtcars)
 ```
 
-First, we'll save the `mpg` column into a new object called `mydata`, using the `$` operator (see the end of the "Importing Data" section of the manual for more details)
+First, we'll save the `mpg` column into a new object called `mydata`, using the `$` operator (click [here](#columns) for more information on using `$`):
 
 ```{r}
 mydata <- mtcars$mpg
@@ -73,4 +73,4 @@ The easiest way to summarize categorical data is to create a table counting up t
 table(cyldata)
 ```
 
-Generating a table like this one will also be useful when creating barplots and pie charts (see Graphs and Plots section).
+Generating a table like this one will also be useful when creating barplots and pie charts (see [Graphs and Plots](#graphs)).

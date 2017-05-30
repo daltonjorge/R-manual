@@ -1,4 +1,4 @@
-### Bar Graph
+### Bar Graph <a id="bargraph"></a>
 
 We'll use engine cylinder data (`cyl`) from the `mtcars` dataset to demonstrate creating a bar graph in R. First, generate a table from the `cyl` data column and save it as a new object `cyltable`:
 
@@ -28,6 +28,7 @@ Note we have specified the option `decreasing = TRUE`; otherwise our table would
 barplot(cyltable.sorted, xlab="Cylinders", ylab="Number of Car Models")
 ```
 
+<a id="changecolors"></a>
 You can change the pattern and color of the bars as well. To change the pattern, use the `density` option (set it to a fairly large number, say between 30 and 50). To change the color of the bars, use the `col` option; `R` recognizes many basic colors like `'red'`, `'blue'` or `'green'`:
 
 ```{r}
@@ -82,7 +83,7 @@ stem(mtcars$mpg)
 
 Note that the stem-and-leaf plot prints in the console instead of in the Plots tab.
 
-### Boxplot
+### Boxplot <a id="boxplot"></a>
 
 A boxplot of the `mpg` data can be generated with the `boxplot()` function:
 
@@ -96,7 +97,7 @@ We also might want to make a more complex boxplot, with a separate plot of `mpg`
 boxplot(mtcars$mpg ~ mtcars$cyl, xlab="Cylinders", ylab="Miles per Gallon")
 ```
 
-### Normal Quantile Plot
+### Normal Quantile Plot <a id="qqplot"></a>
 
 To generate a normal quantile plot of the `mpg` column of the `mtcars` dataset, use the `qqnorm()` and `qqline()` functions together (in that order) on `mtcars$mpg`.
 
