@@ -1,0 +1,106 @@
+### Scatterplot
+
+In this section, we will examine the relationship between two quantitative variables (R calls them *numeric* variables). We'll again use the `mpg` column from the `mtcars` dataset, as well as the horsepower column from the same car dataset (`mtcars$hp`).
+
+First, check that R is treating both variables as *numeric*:
+
+```{r}
+is.numeric(mtcars$mpg)
+is.numeric(mtcars$hp)
+```
+
+To generate a scatterplot from these two variables, simply provide the  two columns of data to the `plot()` function:
+
+```{r}
+plot(x = mtcars$hp, y = mtcars$mpg)
+```
+
+There appears to be a negative relationship between the two variables. Note that you could optionally change the colors, x- and y-axis labels, etc. in the same way that we changed things in previous plots (see section 5 of this manual).
+
+### Correlation
+
+We can test for a significant correlation between `mpg` and `hp` by generating a Pearson's correlation coefficient for the two variables with the function `cor.test()`:
+
+```{r}
+cor.test(mtcars$mpg, mtcars$hp)
+```
+
+There does appear to be a significant, negative correlation as we expected. R provides an estimate of the correlation coefficient as well as a 95% confidence interval and p-value.
+
+### Linear Regression
+
+To relate the two variables using a linear regression, we can use the `lm()` function (*lm* stands for "linear model"). This function uses the same formula syntax we used for ANOVA. We will conduct a regression with miles-per-gallon (`mtcars$mpg`) as the dependent variable and horsepower (`mtcars$hp`) as the independent variable, and save the result as an object called `mpg.lm`. To make things easier for later, we will use a handy feature of the `lm()` function (and many other R functions): the `data` argument. This argument tells R which dataset to look for the specified columns in, meaning that we don't have to use the `$` syntax anymore. This only works if all the columns of data we are using come from the same dataset (in this case, `mtcars`).
+
+```{r}
+mpg.lm <- lm(mpg ~ hp, data = mtcars) #Dependent variable on the left
+summary(mpg.lm)
+```
+
+R provides estimates of the coefficients (that is, the slope and intercept) along with associated standard errors and p-values. At the bottom of the summary statement R also provides an estimate of the residual error, the, djusted R-squared, and an F-statistic.
+
+To increase the number of digits after the decimal point, using the `print()` function:
+
+```{r}
+print(summary(mpg.lm), digits=6)
+```
+
+We can add this regression line to the scatterplot we generated earlier by calling the `abline()` function on our regression output object:
+
+```{r}
+plot(x = mtcars$hp, y = mtcars$mpg) #First, remake the scatterplot
+abline(mpg.lm) #Add the regression line to the plot
+```
+
+If you don't see the line, try switching the order of the variables provided in `plot()` and running the code above again.
+
+### Diagnostic Plots
+
+To get a normal probability plot (or QQ-plot, or normal quantile plot) for the dependent variable, see section 5 of the manual ("Normal Quantile Plot).
+
+There is a large amount of hidden information available in our regression output object (`mpg.lm`). We can extract a list of the unstandardized residuals by calling the `residuals()` function on our model output:
+
+```{r}
+residuals(mpg.lm)
+```
+
+We can plot these residuals against the independent variable (`mtcars$hp`) using the `plot()` function, and add a reference line at 0 using `abline()`.
+
+```{r}
+plot(x = mtcars$hp, y = residuals(mpg.lm))
+abline(h=0) #Horizontal line at 0
+```
+
+### Predicted Values and Confidence Intervals
+
+To get predicted values (95% confidence intervals) for each value of horsepower in our original dataset, call the `predict()` function on our model output with the additional argument `interval = "predict"`:
+
+```{r, warning=FALSE}
+predict(mpg.lm, interval = "predict")
+```
+
+To generate a predicted value and 95% confidence interval for a new value of horsepower that was not in our original dataset (say 300), use the `newdata` argument. The `newdata` argument expects input to be formatted as a data frame containing variable names that match the name of the dependent variable(s). Don't worry about this too much right now; just note where we include the name of the dependent variable (`hp`) in the argument:
+
+```{r}
+predict(mpg.lm, newdata = data.frame(hp=300), interval = "predict")
+```
+
+Predicted `mpg` for a car with 300 horsepower is around 9.6 based on our model.
+
+### Multiple Regression
+
+We can add additional independent variables to our regression in the same way that we added them for ANOVA. For example, if we want to add the weight of a car (`mtcars$wt`) to our predictive model of miles per gallon, we simply add it to the model formula (remember we don't need the `mtcars$` part because we've specified the data source):
+
+```{r}
+mpg.lm <- lm(mpg ~ hp + wt, data = mtcars)
+summary(mpg.lm)
+```
+
+There is now a new slope value (and associated standard error and p-value) included in the coefficients table for the independent variable `wt`.
+
+To get a predicted value of `mpg` with the new model, we need to provide values of both `hp` and `wt`. For example, to get predicted miles per gallon for a new car that has 300 horsepower and a weight of 3.20 based on our model:
+
+```{r}
+predict(mpg.lm, newdata = data.frame(hp=300, wt=3.20), interval = "predict")
+```
+
+Predicted miles per gallon for this theoretical car is around 15.2.

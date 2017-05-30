@@ -14,6 +14,12 @@ To view the output of the test, type the object into the console:
 cars.1sample
 ```
 
+You can change the number of significant digits reported in the output by wrapping the object in the `print()` function. For example, to get 10 significant digits:
+
+```{r}
+print(cars.1sample, digits=10)
+```
+
 Note that R provides lots of output information, including the value of *t*, the degrees of freedom, the *p*-value, the mean value of `mtcars$mpg`, and the 95% confidence interval around the mean value.
 
 By default, R runs a two-sided t-test. If you want to do a one-sided test instead, you can do so by specifying the `alternative` argument in your call to `t.test()`, as either `'less'` or `'greater'`. For example, if you wanted to test the hypothesis that the mean value of `mpg` was significantly *less* than 23:
@@ -39,7 +45,7 @@ To set up this t-test, you will have to learn to use the the R formula syntax. T
 
 > response_variable ~ predictor_variable(s)
 
-The y variable (or response variable, or independent variable) goes on the left, followed by a tilde (`~`), followed by the predictor or dependent variable(s). In our example above, we want to predict extra sleep (`extra`) as a function of drug type (confusingly named `group` column). Thus our R formula should look like this:
+The y variable (or response variable, or dependent variable) goes on the left, followed by a tilde (`~`), followed by the predictor or independent variable(s). In our example above, we want to predict extra sleep (`extra`) as a function of drug type (confusingly named `group` column). Thus our R formula should look like this:
 
 ```{r}
 sleep$extra ~ sleep$group

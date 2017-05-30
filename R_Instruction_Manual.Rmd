@@ -32,3 +32,15 @@ output:
 ## t-tests
 ```{r child='06_ttest.Rmd'}
 ```
+
+## ANOVA
+```{r child='07_anova.Rmd'}
+```
+
+## Correlations and Regression
+```{r child='08_regression.Rmd'}
+```
+
+## Chi-square Tests
+```{r child='09_chisquare.Rmd'}
+```

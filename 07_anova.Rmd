@@ -1,0 +1,105 @@
+### One-way ANOVA
+
+Suppose we want to test if the mean `mpg` (miles-per-gallon) of all cars in the `mtcars` dataset is significantly different among cars with different numbers of cylinders (`cyl`). We can do this with analysis of variance (ANOVA), using the R function `aov()`.
+
+A requirement of ANOVA is that our response or dependent variable is quantitative (R calls quantitative variables *numeric*), and our independent variable is categorical (a *factor* in R). We can check whether our data meet these requirements in R. First, is the `mpg` data numeric?
+
+```{r}
+is.numeric(mtcars$mpg)
+```
+
+The `is.numeric()` function returns `TRUE`, meaning the `mpg` column is numeric as we expect. Next, we will check if the `cyl` column is a *factor* (that is, categorical):
+
+```{r}
+is.factor(mtcars$cyl)
+```
+
+The function returns `FALSE`; R is treating `cyl` as numeric, not factor like we need. We'll need to make a new object from `mtcars$cyl` that is a factor using a related function, `as.factor()`. We'll name this new object `cyl.factor`, and then check to make sure it is a factor:
+
+```{r}
+cyl.factor <- as.factor(mtcars$cyl)
+is.factor(cyl.factor)
+```
+
+The `is.factor()` function now returns `TRUE`. We are now ready to conduct ANOVA. Much like the two-sample t-test, we use the R formula syntax to define our ANOVA. The dependent variable is on the left, followed by a tilde (`~`), followed by the independent variable:
+
+> mtcars$mpg ~ cyl.factor
+
+That's all we need to provide to the `aov()` function. We'll save the ANOVA as a new object called `mpg.anova`:
+
+```{r}
+mpg.anova <- aov(mtcars$mpg ~ cyl.factor)
+mpg.anova
+```
+
+Note that when printed to the R console, our ANOVA output seems to be missing some information. To get everything we expect from an ANOVA (sum of squares, degrees of fredom, F and p values, etc.), use the `summary()` function:
+
+```{r}
+summary(mpg.anova)
+```
+
+You can change the number of significant digits reported by `summary()` (might  be required by Perdisco) by wrapping it in the `print()` function and specifying the number of digits, e.g. to get 6 significant digits:
+
+```{r}
+print(summary(mpg.anova),digits=6)
+```
+
+Based on this output, there does appear to be a significant difference in miles-per-gallon among cars with different numbers of cylinders.
+ 
+### Post-hoc Multiple Comparisons
+
+We may also want to test for differences between individual pairs of means. The first step is to calculate the means for each cylinder group. Means can be calculated quickly by calling `model.tables()` on our ANOVA output:
+
+```{r}
+model.tables(mpg.anova,"means")
+```
+
+The output shows the overall mean, the mean value by cylinder count, and the sample size for each cylinder count (`rep`). We can visualize these means using a boxplot (see section 5 for more details on making boxplots):
+
+```{r}
+boxplot(mtcars$mpg ~ cyl.factor)
+```
+
+Unsurprisingly, cars with more cylinders have worse fuel efficiency. We can also test for differences among pairs of means while adjusting the critical p-values appropriately using Bonferroni correction. The easiest way is using the built-in function `pairwise.t.test()`, which conducts a t-test for each pair of means. We need to provide three arguments: the dependent variable (`mtcars$mpg`), the independent variable (`cyl.factor`), and the type of p-value correction we want (`"bonferroni"`). It's also a good idea to specify that we do not want the t-test to be calculated with a pooled SD.
+
+```{r}
+pairwise.t.test(mtcars$mpg, cyl.factor, "bonferroni", pool.sd = FALSE)
+```
+
+Based on this output, all pairwise comparisons of cylinder groups are significantly different from each other, even after Bonferroni correction.
+
+### Two-way ANOVA
+
+We can conduct a two-way ANOVA using the same function as before (`aov()`). Suppose we wanted to examine an additional main effect on miles-per-gallon, the number of forward gears in the car (`mtcars$gear`). As with `cyl`, we first need to check if R is treating the number of gears as a factor (i.e., categorical):
+
+```{r}
+is.factor(mtcars$gear)
+```
+
+As before, we need to define a new version of `gear` that is a factor:
+
+```{r}
+gear.factor <- as.factor(mtcars$gear)
+```
+
+To do a two-way ANOVA with both cylinder and gear main effects on miles-per-gallon, we need only make a slight change to the R formula syntax:
+
+> mtcars$mpg ~ cyl.factor + gear.factor
+
+Notice that the new independent variable is added on the right side of the tilde, after a plus sign. To run the analysis:
+
+```{r}
+mpg.2way <- aov(mtcars$mpg ~ cyl.factor + gear.factor)
+summary(mpg.2way)
+```
+
+Now we can see both main effects in the ANOVA output table. As before, there is a significant effect of number of cylinders on miles per gallon, but no effect of number of forward gears. If we also want the interactive effect of the two independent variables, we make a small change to the model formula syntax, replacing `+` with `*`:
+
+> mtcars$mpg ~ cyl.factor * gear.factor
+
+```{r}
+mpg.2way <- aov(mtcars$mpg ~ cyl.factor * gear.factor)
+summary(mpg.2way)
+```
+
+Now, a third interaction effect (`cyl.factor:gear.factor`) is included in the output table.

@@ -1,0 +1,69 @@
+### Convert Raw Data to a Table
+
+When conducting a chi-square test, R expects the input data to be in the form of a table of counts (i.e., a contigency table). If you have raw data instead, where each line of the dataset represents an individual subject, you will need to convert that data into tabular form first. If you already have a table, move on to the next section.
+
+To demonstrate compiling raw data into a table, we'll use a built-in dataset `survey`, results from a survey on health-related habits. You'll need to load the built-in `MASS` package to use it:
+
+```{r}
+library(MASS)
+```
+
+To view the first few rows of the dataset:
+
+```{r}
+head(survey)
+```
+
+Each row represents an individual survey response. Suppose we are interested in determining if there is a relationship between the amount a person smokes (column `Smoke`) and the amount of exercise they get (column `Exer`). These are categorical (or *factor*) variables; we need to make sure that R is treating them that way:
+
+```{r}
+is.factor(survey$Smoke)
+is.factor(survey$Exer)
+```
+
+To create a contigency table between these two variables, we will use the `table()` function in R, providing as arguments the two columns of data we are interested in. We'll save the table as an object called `smoke.table`:
+
+```{r}
+smoke.table <- table(survey$Smoke, survey$Exer)
+smoke.table
+```
+
+Notice that the possible answers for `Smoke` are listed on the left and the options for `Exer` are on the top.
+
+To change counts into percentages, simply divide all values in the table by the total number of values, and multiply by 100:
+
+```{r}
+smoke.table / sum(smoke.table) * 100
+```
+
+### Run the Chi-square Test
+
+Once the data are in tabular form, we can conduct a chi-square test with the `chisq.test()` function, which takes our table as input:
+
+```{r, warning = FALSE}
+chisq.test(smoke.table)
+```
+
+R provides values for the chi-square statistic, the degrees of freedom, and the associated p-value. There doesn't appear to be a relationship between smoking and exercise based on the p-value reported.
+
+You can change the number of digits in the output by wrapping the call to `chisq.test()` in the `print()` function:
+
+```{r, warning = FALSE}
+print(chisq.test(smoke.table),digits=10)
+```
+
+### Bar Graph
+
+One way to summarize the tabular data visually is via a bar graph (see section 5 for more details).
+
+We can call the `barplot()` function directly on the table we generated earlier:
+
+```{r}
+barplot(smoke.table)
+```
+
+This gives us an uneappealing stacked bar graph where each bar represents one of the exercise categories and different colors represent different smoking categories. We can split the bar stacks out into groups instead by setting the argument `beside = TRUE`, and provide a legend for the colors with `legend = TRUE`. The remaining arguments add helpful labels.
+
+```{r}
+barplot(smoke.table, beside = TRUE, legend = TRUE, xlab = "Exercise", ylab = "Counts", args.legend = list(title="Smoking"))
+```
