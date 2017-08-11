@@ -19,6 +19,19 @@ You are creating a new *object* in R called `mydata` that contains a list of the
 mydata
 ```
 
+If you need to enter data consisting of words (also called strings, or characters), the process is similar to what you used for numeric data above. The difference is that each individual datapoint (i.e., each word) must be wrapped in quotation marks (""). For example, a dataset of fruits:
+
+```{r}
+myfruits <- c("apple","orange","pear","banana")
+```
+
+If you need to check which type of data (e.g. numeric or word/character) is contained in a dataset, use the `class()` function:
+
+```{r}
+class(mydata)
+class(myfruits)
+```
+
 ### Read in Perdisco Homework Data
 
 1. Start by opening the homework Start by clicking on the "Download the Data" button next to the dataset you want:
