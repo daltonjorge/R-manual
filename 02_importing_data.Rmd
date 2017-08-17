@@ -32,6 +32,8 @@ class(mydata)
 class(myfruits)
 ```
 
+Note that `numeric` corresponds to data we call *quantitative* in STAT 301, and `character` corresponds to data we call *categorical* in STAT 301.
+
 ### Read in Perdisco Homework Data
 
 1. Start by opening the homework Start by clicking on the "Download the Data" button next to the dataset you want:
@@ -84,7 +86,7 @@ mydata
 
 Note that Perdisco also provides instructions on their site for importing homework data into an Excel file. If you do this, see the information below for how to import the Excel data into R.
 
-### Read Excel Data into R
+### Read Excel (or CSV) Data into R
 
 1. Open the Excel file and determine if there are column names (i.e., *headers*) present.
 2. Save the Excel file in CSV (comma-separated-values) format. In Excel, click File > Save As > Save as Type: CSV (comma-delimited)(*.csv). Confirm you want to use this format. This will save a text version of the Excel table that is readable by R.

@@ -2,13 +2,13 @@
 
 R is free software availabe for Windows, Mac, and Linux. 
 
- - On FNR lab computers, you can access R at Start > All Programs > R > R x64 3.x.x (or similar).
+ - All Purdue lab computers should have R available, possibly under "Statistics Software" in the start menu.
  - To use R on a personal computer, download at the following links: 
     - [Windows](https://cran.r-project.org/bin/windows/base/)
     - [Mac](https://cran.r-project.org/bin/macosx/)
     - [Linux](https://cran.r-project.org/bin/linux/)
   
-While you can use R by itself, I highly suggest accessing it via RStudio. RStudio is a more modern interface for R that simplifies many tasks and helps to keep you organized. I will be using it in lectures. RStudio is also completely free and can be downloaded [here](https://www.rstudio.com/products/rstudio/download/). 
+While you can use R by itself, I highly suggest accessing it via RStudio. RStudio is a more modern interface for R that simplifies many tasks and helps to keep you organized. I will be using it in lectures. RStudio is also completely free and can be downloaded [here](https://www.rstudio.com/products/rstudio/download/). RStudio should also be available on all Purdue lab computers.
 
 ### Basics of the RStudio Interface
 
