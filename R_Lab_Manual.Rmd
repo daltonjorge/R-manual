@@ -1,6 +1,6 @@
 ---
-title: 'STAT 301: R Instruction Manual'
-author: "Kenneth F. Kellner"
+title: 'STAT 301: R Lab Manual'
+author: "Ken Kellner"
 date: '`r format(Sys.Date(), "%B %d, %Y")`'
 output:
   html_document:

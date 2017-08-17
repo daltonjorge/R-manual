@@ -5,5 +5,5 @@ if(!file.exists('filepath.R')){
   cat(out.string,file="filepath.R",sep="\n")
 }
 source('filepath.R')
-file.copy('R_Instruction_Manual.html',filepath, overwrite = TRUE)
-file.remove('R_Instruction_Manual.html')
+file.copy('R_Lab_Manual.html',filepath, overwrite = TRUE)
+file.remove('R_Lab_Manual.html')
