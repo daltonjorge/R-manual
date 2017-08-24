@@ -1,4 +1,4 @@
-### One-way ANOVA
+### 7.1 One-way ANOVA
 
 Suppose we want to test if the mean `mpg` (miles-per-gallon) of all cars in the `mtcars` dataset is significantly different among cars with different numbers of cylinders (`cyl`). We can do this with analysis of variance (ANOVA), using the R function `aov()`.
 
@@ -46,7 +46,7 @@ print(summary(mpg.anova),digits=6)
 
 Based on this output, there does appear to be a significant difference in miles-per-gallon among cars with different numbers of cylinders.
  
-### Post-hoc Multiple Comparisons
+### 7.2 Post-hoc Multiple Comparisons
 
 We may also want to test for differences between individual pairs of means. The first step is to calculate the means for each cylinder group. Means can be calculated quickly by calling `model.tables()` on our ANOVA output:
 
@@ -68,7 +68,7 @@ pairwise.t.test(mtcars$mpg, cyl.factor, "bonferroni", pool.sd = FALSE)
 
 Based on this output, all pairwise comparisons of cylinder groups are significantly different from each other, even after Bonferroni correction.
 
-### Two-way ANOVA
+### 7.3 Two-way ANOVA
 
 We can conduct a two-way ANOVA using the same function as before (`aov()`). Suppose we wanted to examine an additional main effect on miles-per-gallon, the number of forward gears in the car (`mtcars$gear`). As with `cyl`, we first need to check if R is treating the number of gears as a factor (i.e., categorical):
 

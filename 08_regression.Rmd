@@ -1,4 +1,4 @@
-### Scatterplot
+### 8.1 Scatterplot
 
 In this section, we will examine the relationship between two quantitative variables (R calls them *numeric* variables). We'll again use the `mpg` column from the `mtcars` dataset, as well as the horsepower column from the same car dataset (`mtcars$hp`).
 
@@ -17,7 +17,7 @@ plot(x = mtcars$hp, y = mtcars$mpg)
 
 There appears to be a negative relationship between the two variables. Note that you could optionally change the colors, x- and y-axis labels, etc. in the same way that we changed things in [previous plots](#changecolors).
 
-### Correlation
+### 8.2 Correlation
 
 We can test for a significant correlation between `mpg` and `hp` by generating a Pearson's correlation coefficient for the two variables with the function `cor.test()`:
 
@@ -27,7 +27,7 @@ cor.test(mtcars$mpg, mtcars$hp)
 
 There does appear to be a significant, negative correlation as we expected. R provides an estimate of the correlation coefficient as well as a 95% confidence interval and p-value.
 
-### Linear Regression
+### 8.3 Linear Regression
 
 To relate the two variables using a linear regression, we can use the `lm()` function (*lm* stands for "linear model"). This function uses the same formula syntax we used for ANOVA. We will conduct a regression with miles-per-gallon (`mtcars$mpg`) as the dependent variable and horsepower (`mtcars$hp`) as the independent variable, and save the result as an object called `mpg.lm`. To make things easier for later, we will use a handy feature of the `lm()` function (and many other R functions): the `data` argument. This argument tells R which dataset to look for the specified columns in, meaning that we don't have to use the `$` syntax anymore. This only works if all the columns of data we are using come from the same dataset (in this case, `mtcars`).
 
@@ -59,7 +59,7 @@ abline(mpg.lm) #Add the regression line to the plot
 
 If you don't see the line, try switching the order of the variables provided in `plot()` and running the code above again.
 
-### Diagnostic Plots <a id="diagnostics"></a>
+### 8.4 Diagnostic Plots <a id="diagnostics"></a>
 
 Normal probability plots (or QQ-plot, or normal quantile plot) for the dependent variable were covered previously [here](#qqplot).
 
@@ -76,7 +76,7 @@ plot(x = mtcars$hp, y = residuals(mpg.lm))
 abline(h=0) #Horizontal line at 0
 ```
 
-### Predicted Values and Confidence Intervals
+### 8.5 Predicted Values and Confidence Intervals
 
 To get predicted values (95% confidence intervals) for each value of horsepower in our original dataset, call the `predict()` function on our model output with the additional argument `interval = "predict"`:
 
@@ -92,7 +92,7 @@ predict(mpg.lm, newdata = data.frame(hp=300), interval = "predict")
 
 Predicted `mpg` for a car with 300 horsepower is around 9.6 based on our model.
 
-### Multiple Regression
+### 8.6 Multiple Regression
 
 We can add additional independent variables to our regression in the same way that we added them for ANOVA. For example, if we want to add the weight of a car (`mtcars$wt`) to our predictive model of miles per gallon, we simply add it to the model formula (remember we don't need the `mtcars$` part because we've specified the data source):
 

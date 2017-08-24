@@ -1,6 +1,6 @@
 You have several options for getting raw data into R. This can occasionally be a difficult process, particularly if your data are in a non-standard format (like data from Perdisco).
 
-### Entering Data Manually
+### 2.1 Entering Data Manually
 
 When provided with a small set of data, the easiest way to get it into R is to enter it manually. For example, suppose you are given the following short list of data in a homework question:
 
@@ -13,7 +13,7 @@ To enter it into R, add a line in your homework script that looks like this:
 mydata <- c(45.00, 11.00, 13.00, 14.50, 65.00, 27.50, 32.00, 8.00)
 ```
 
-You are creating a new *object* in R called `mydata` that contains a list of the data points. Notice that the data points are separated by commas, and are inside `c()` which is an R *function* stands for *combine*. Put your cursor in front of `mydata` and click the "Run" button on the top right of the script pane to enter the new object into the R console. You can now view the datapoints in the "mydata" object by typing 'mydata' into the console and hitting enter:
+You are creating a new *object* in R called `mydata` that contains a list of the data points. Notice that the data points are separated by commas, and are inside `c()` which is an R *function* that stands for *combine*. Put your cursor in front of `mydata` and click the "Run" button on the top right of the script pane to enter the new object into the R console. You can now view the datapoints in the "mydata" object by typing 'mydata' into the console and hitting enter:
     
 ```{r}
 mydata
@@ -34,7 +34,7 @@ class(myfruits)
 
 Note that `numeric` corresponds to data we call *quantitative* in STAT 301, and `character` corresponds to data we call *categorical* in STAT 301.
 
-### Read in Perdisco Homework Data
+### 2.2 Read in Perdisco Homework Data
 
 1. Start by opening the homework Start by clicking on the "Download the Data" button next to the dataset you want:
     
@@ -86,7 +86,7 @@ mydata
 
 Note that Perdisco also provides instructions on their site for importing homework data into an Excel file. If you do this, see the information below for how to import the Excel data into R.
 
-### Read Excel (or CSV) Data into R
+### 2.3 Read Excel (or CSV) Data into R
 
 1. Open the Excel file and determine if there are column names (i.e., *headers*) present.
 2. Save the Excel file in CSV (comma-separated-values) format. In Excel, click File > Save As > Save as Type: CSV (comma-delimited)(*.csv). Confirm you want to use this format. This will save a text version of the Excel table that is readable by R.
@@ -97,7 +97,7 @@ Note that Perdisco also provides instructions on their site for importing homewo
     mydata <- read.table(file = "YOURFILENAME.csv", header = FALSE, sep = ",")
     ```
 
-### Selecting Individual Columns of Data <a id="columns"></a>
+### 2.4 Selecting Individual Columns of Data <a id="columns"></a>
 
 Frequently, you will be working with a dataset that contains multiple columns of data. For example, the `mtcars` dataset (it's  built into R) contains several columns of information about different car models. Here are the first several rows:
 

@@ -9,38 +9,38 @@ output:
   pdf_document: default
 ---
 
-## Getting Started
+## 1. Getting Started
 ```{r child='01_getting_started.Rmd'}
 ```
 
-## Importing Data into R
+## 2. Importing Data into R
 ```{r child='02_importing_data.Rmd'}
 ```
 
-## Taking a Simple Random Sample
+## 3. Taking a Simple Random Sample
 ```{r child='03_simple_random_sample.Rmd'}
 ```
 
-## Descriptive Statistics
+## 4. Descriptive Statistics
 ```{r child='04_descriptive_stats.Rmd'}
 ```
 
-## Graphs and Plots <a id="graphs"></a>
+## 5. Graphs and Plots <a id="graphs"></a>
 ```{r child='05_plots.Rmd'}
 ```
 
-## t-tests
+## 6. t-tests
 ```{r child='06_ttest.Rmd'}
 ```
 
-## ANOVA
+## 7. ANOVA
 ```{r child='07_anova.Rmd'}
 ```
 
-## Correlations and Regression
+## 8. Correlations and Regression
 ```{r child='08_regression.Rmd'}
 ```
 
-## Chi-square Tests
+## 9. Chi-square Tests
 ```{r child='09_chisquare.Rmd'}
 ```

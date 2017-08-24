@@ -1,4 +1,4 @@
-### One Sample t-test
+### 6.1 One Sample t-test
 
 Suppose we want to test if the mean `mpg` (miles-per-gallon) of all cars in the `mtcars` dataset is significantly different from 23. We can do this using a one sample t-test, which can be conducted with the built-in `t.test()` function in R.
 
@@ -41,7 +41,7 @@ cars.1sample
 
 As expected, the *p*-value given by this test is half of the value for the two-sided test conducted above.
 
-### Matched pairs t-test
+### 6.2 Matched pairs t-test
 
 To demonstrate a matched-pairs t-test, we'll use the `sleep` data built into R, which looks like this:
 
@@ -70,7 +70,7 @@ sleep.paired
 
 Note that by default the alternative hypothesis ($\mu_0$) is set to 0; we could change this with the `mu` argument as shown above. You should also notice that the calculated mean is negative. This means that the mean of group 1 is *less* than the mean of group 2 - R calculates the mean as group 1 - group 2. If are interested in the reverse value (group 2 - group 1), you have to switch the sign of the mean (to positive in this case).
 
-### Two-sample t-test
+### 6.3 Two-sample t-test
 
 Now, let's assume that the `sleep` drug response data are not paired, but in fact data from the two groups (i.e., the two drug types) are independent - thus we need to conduct a two-sample t-test. All we need to do differently is remove the `paired` argument from our call to `t.test()` (or set it to `FALSE`):
 

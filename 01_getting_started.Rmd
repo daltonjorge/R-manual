@@ -1,4 +1,4 @@
-### How to Get R
+### 1.1 How to Get R
 
 R is free software availabe for Windows, Mac, and Linux. 
 
@@ -10,7 +10,7 @@ R is free software availabe for Windows, Mac, and Linux.
   
 While you can use R by itself, I highly suggest accessing it via RStudio. RStudio is a more modern interface for R that simplifies many tasks and helps to keep you organized. I will be using it in lectures. RStudio is also completely free and can be downloaded [here](https://www.rstudio.com/products/rstudio/download/). RStudio should also be available on all Purdue lab computers.
 
-### Basics of the RStudio Interface
+### 1.2 Basics of the RStudio Interface
 
 By default, RStudio has four individual panes:
 
@@ -24,7 +24,7 @@ By default, RStudio has four individual panes:
 
 4. Files/Plots/Help: A utility pane that shows various information including plots you have created, help files you have searched for, and files in your working directory.
 
-### Using the R *Console*
+### 1.3 Using the R *Console*
 
 The R console is analogous to a calculator. You type commands in R code in at the prompt (`>`) and the answer is returned below. In this manual, I will represent R commands using a special font in grey boxes that looks like 
 
@@ -64,7 +64,7 @@ Notice that the result of `2 + 2` did not appear in the console. You can view th
 myobject
 ```
 
-### Saving R Commands in a *Script*
+### 1.4 Saving R Commands in a *Script*
 
 When doing an analysis in R, it's a good idea to save a record of the commands you gave in the R console so that the analysis can be modified or recreated later on. This record is often called a "script". In RStudio, you can create a new script with File > New File > R script. This will open a blank document (don't forget to name and save it!) above your console. You can type a list of R commands, one per line, into this script and then run each command consecutively using the "Run" button on the upper right.
 

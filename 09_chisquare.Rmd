@@ -1,4 +1,4 @@
-### Convert Raw Data to a Table
+### 9.1 Convert Raw Data to a Table
 
 When conducting a chi-square test, R expects the input data to be in the form of a table of counts (i.e., a contigency table). If you have raw data instead, where each line of the dataset represents an individual subject, you will need to convert that data into tabular form first. If you already have a table, move on to the [next section](#chisqnext).
 
@@ -36,7 +36,7 @@ To change counts into percentages, simply divide all values in the table by the 
 smoke.table / sum(smoke.table) * 100
 ```
 
-### Run the Chi-square Test <a id="chisqnext"></a>
+### 9.2 Run the Chi-square Test <a id="chisqnext"></a>
 
 Once the data are in tabular form, we can conduct a chi-square test with the `chisq.test()` function, which takes our table as input:
 
@@ -52,7 +52,7 @@ You can change the number of digits in the output by wrapping the call to `chisq
 print(chisq.test(smoke.table),digits=10)
 ```
 
-### Bar Graph
+### 9.3 Bar Graph
 
 One way to summarize the tabular data visually is via a bar graph (click [here](#bargraph) for more details).
 

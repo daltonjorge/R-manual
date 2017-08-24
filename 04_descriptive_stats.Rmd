@@ -1,4 +1,4 @@
-### Quantitative Data
+### 4.1 Quantitative Data
 
 R has many built in tools to calculate descriptive statistics of quantitative data. We'll calculate a series of descriptive statistics for the `mpg` (miles-per-gallon) column of the `mtcars` dataset that comes with R. To review, here's what the first few rows of the `mtcars` dataset look like:
 
@@ -57,7 +57,7 @@ To calculate the percentage of values of `mydata` less than or equal to 2 and gr
 sum(mydata <= 21 & mydata > 14) / length(mydata) * 100
 ```
 
-### Categorical Data
+### 4.2 Categorical Data
 
 The `mtcars` dataset also contains a column `cyl` which contains information about the number of cylinders (4, 6, or 8) in the engine of each car model. Although `cyl` contains numbers, we can treat it as a categorical variable. 
 
