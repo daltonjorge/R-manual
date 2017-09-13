@@ -36,53 +36,59 @@ Note that `numeric` corresponds to data we call *quantitative* in STAT 301, and 
 
 ### 2.2 Read in Perdisco Homework Data
 
-1. Start by opening the homework Start by clicking on the "Download the Data" button next to the dataset you want:
+1. Start by clicking on the "Download the Data" button next to the dataset you want:
     
-![](images/download.png)
+    ![](images/download.png)
     
-This will pop open a new window containing your dataset. Take a close look at the contents and consider the answers to the following questions: 
+    This will pop open a new window containing your dataset. Take a close look at the contents and consider the answers to the following questions: 
     
-1. Is there a single column of data, or more than one column?
-2. Is there a *header* at the top of the column(s)? That is, do the column(s) have names?
-3. How are the data points separated? (For all Perdisco files you will access, the answer is probably commas)
+    a. Is there a single column of data, or more than one column?
+    b. Is there a *header* at the top of the column(s)? That is, do the column(s) have names?
+    c. How are the data points separated? (For all Perdisco files you will access, the answer is probably commas)
+<br><br>
+2. Next, select and copy all the values in the popup (ignoring the "For help..." line at the top of the page):
+    
+    ![](images/select.png)
+<br><br>
+3. Paste the values into a text editor (like Notepad on Windows, or Text Edit on a Mac).
 
-Next, select all the values in the popup (ignoring the "For help..." line at the top of the page):
+4. Save the file in your text editor to a suitable folder (e.g., Downloads), giving it a memorable name that ends in ".txt" like "mydata.txt".
+
+5. Set your R working directory to the location of your data file (Session > Set Working Directory > Choose Directory)
+
+6. Use the `read.table()` *function* to read the data into R. The `read.table` function requires you to specify three *arguments* (i.e., options): the data source (the full name of the file), if the file has *headers*, and how the individual data points are separated from each other (commas). For the example above, you would add the following line to your script:
     
-![](images/select.png)
+    ```{r, echo=FALSE, warning=FALSE,message=FALSE,error=FALSE}
+    set.seed(2017)
+    #Generate the sample dataset to be read in
+    out = round(rnorm(100,2,1),2)
+    out = cbind(out,NA)
+    write.table(out,file='example.txt',sep=',',row.names=F, col.names=F)
+    mydata = read.table(file = 'example.txt', header = FALSE, sep = ",")
+    nl <- capture.output(file.remove('example.txt'))
+    ```
     
-2. Next, use the `read.table()` *function* to read the data into R directly from your computer's clipboard. The `read.table` function requires you to specify three *arguments* (i.e., options): the data source (in our case the clipboard), if the file has *headers*, and how the individual data points are separated from each other (commas). Add the following lines to your script:
+    ```{r, eval=FALSE}
+    mydata <- read.table(file = "mydata.txt", header = FALSE, sep = ",")
+    ```
+
+6. You will probably see the following warning message in the console:
     
-```{r, echo=FALSE}
-set.seed(2017)
-#Generate the sample dataset to be read in
-out = round(rnorm(100,2,1),2)
-out = cbind(out,NA)
-write.table(out,file='example.txt',sep=',',row.names=F, col.names=F)
-mydata = read.table(file = 'example.txt', header = FALSE, sep = ",")
-file.remove('example.txt')
-```
+    > Warning message: <br>
+    > In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : <br>
+    > number of items read is not a multiple of the number of columns
     
-```{r, eval=FALSE}
-mydata <- read.table(file = "clipboard", header = FALSE, sep = ",")
-```
+    This is due to a quirk in Perdisco's text files that creates an extra column of empty values you don't want. If you see this warning, add the following      line to your script and run it after the code above to get rid of the extra column. At this point, don't worry about exactly what this code is doing.
     
-You may see the following warning message in the console if the dataset only has one column:
+    ```{r}
+    mydata <- mydata[,-ncol(mydata)]
+    ```
     
-> Warning message: <br>
-> In scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : <br>
-> number of items read is not a multiple of the number of columns
+7. You can now look at the dataset in R by typing `mydata` into the console. If your dataset only had one column, you should get something that looks similar to the following output:
     
-This is due to a quirk in Perdisco's text files that creates an extra column of empty values you don't want. If you see this warning, add the following line to your script and run it after the code above to get rid of the extra column. At this point, don't worry about exactly what this code is doing.
-    
-```{r}
-mydata <- mydata[,-ncol(mydata)]
-```
-    
-You can now look at the dataset in R by typing `mydata` into the console. If your dataset only had one column, you should get something that looks similar to the following output:
-    
-```{r}
-mydata
-```
+    ```{r}
+    mydata
+    ```
 
 Note that Perdisco also provides instructions on their site for importing homework data into an Excel file. If you do this, see the information below for how to import the Excel data into R.
 
